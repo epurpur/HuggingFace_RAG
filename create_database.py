@@ -2,22 +2,19 @@
 from langchain_community.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
-# from langchain.embeddings import OpenAIEmbeddings
-from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma
+# from huggingface embeddings
+from langchain_huggingface import HuggingFaceEmbeddings
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+# Chroma vector store:
+from langchain_chroma import Chroma
+
 import openai 
-from dotenv import load_dotenv
 import os
 import shutil
 
-# Load environment variables. Assumes that project contains .env file with API keys
-load_dotenv()
-#---- Set OpenAI API key 
-# Change environment variable name from "OPENAI_API_KEY" to the name given in 
-# your .env file.
-openai.api_key = os.environ['OPENAI_API_KEY']
-
-CHROMA_PATH = "chroma"
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent
+CHROMA_PATH = str(BASE_DIR / "chroma")  # same in BOTH scripts
 DATA_PATH = "data/books"
 
 
@@ -48,6 +45,7 @@ def split_text(documents: list[Document]):
     print(f"Split {len(documents)} documents into {len(chunks)} chunks.")
 
     document = chunks[10]
+    print("PRINTING CONTENT")
     print(document.page_content)
     print(document.metadata)
 
@@ -61,9 +59,11 @@ def save_to_chroma(chunks: list[Document]):
 
     # Create a new DB from the documents.
     db = Chroma.from_documents(
-        chunks, OpenAIEmbeddings(), persist_directory=CHROMA_PATH
-    )
-    db.persist()
+    chunks,
+    HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2"),
+    persist_directory=CHROMA_PATH,
+    collection_name=COLLECTION,)
+
     print(f"Saved {len(chunks)} chunks to {CHROMA_PATH}.")
 
 
