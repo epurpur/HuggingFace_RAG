@@ -7,8 +7,8 @@ from transformers import pipeline
 
 # --- Config (keep these identical to your create_database.py) ---
 BASE_DIR = Path(__file__).resolve().parent
-CHROMA_PATH = str(BASE_DIR / "chroma")
-COLLECTION = "rag"
+CHROMA_PATH = (BASE_DIR / "chroma").resolve()  # absolute path
+COLLECTION = "webpages"
 
 PROMPT_TEMPLATE = """
 Answer the question based only on the following context:
@@ -81,7 +81,7 @@ def main():
     response_text = gen(prompt_str)[0]["generated_text"]
 
     sources = [d.metadata.get("source") for d in used_docs]
-    print(f"Response: {response_text}\nSources: {sources}")
+    print(f"Response: \n \n {response_text}\nSources: {sources}  \n \n")
 
 if __name__ == "__main__":
     main()
