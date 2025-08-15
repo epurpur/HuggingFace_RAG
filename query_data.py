@@ -81,7 +81,7 @@ def main():
     response_text = gen(prompt_str)[0]["generated_text"]
 
     sources = [d.metadata.get("source") for d in used_docs]
-    print(f"Response: \n \n {response_text}\nSources: {sources}  \n \n")
+    print(f"RESPONSE: \n \n {response_text} \n \n Sources: {sources}  \n \n")
 
 if __name__ == "__main__":
     main()
