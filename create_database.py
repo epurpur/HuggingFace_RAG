@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent
 CHROMA_PATH = str(BASE_DIR / "chroma")
 DATA_PATH = BASE_DIR / "data" / "webpages"   # <- reads from data/webpages
 COLLECTION = "webpages"                      # <- define the collection name
-EMBED_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+EMBED_MODEL = "sentence-transformers/all-mpnet-base-v2"
 
 def main():
     generate_data_store()
@@ -59,6 +59,7 @@ def save_to_chroma(chunks: list[Document]):
         embeddings,
         persist_directory=CHROMA_PATH,
         collection_name=COLLECTION,
+        collection_metadata={"hnsw:space": "cosine"},  # ensure cosine space
     )
     print(f"Saved {len(chunks)} chunks to {CHROMA_PATH} (collection='{COLLECTION}').")
 

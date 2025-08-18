@@ -28,7 +28,8 @@ def main():
 
     # Use the SAME embedding model as when you built the DB
     embeddings = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2"
+        model_name="sentence-transformers/all-mpnet-base-v2",
+        encode_kwargs={"normalize_embeddings": True},
     )
 
     # Load the persisted Chroma store
