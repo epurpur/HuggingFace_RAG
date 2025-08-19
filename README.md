@@ -53,3 +53,14 @@ Here is a step-by-step tutorial video: [RAG+Langchain Python Project: Easy AI/Ch
 
 ## Difference between Generative and Embedding model (for my understanding)
 This program is using an embedding model, not a generative model. The difference is the embedding model does not generate new text while a generative AI model (such as GPT) does create new text. The embedding model searches my data for relevant snippets, converts them to a numerical vector, and then gives the response as the most relevant snippets loosely packaged as a response.
+
+all-MiniLM-L6-v2 is the embedding part of the model that finds the most relevant chunks of text to feed the writer
+FLAN-T5 is the generative part of the model that writes the answer
+
+
+Questions asked:
+- What are the services provided by Research Data Services?
+- What are some of the workshops provided by Research Data Services?
+- What should I know about funding agency requirements?
+- What are the options for data storage?
+- What are some of the licensed data sources offered?
