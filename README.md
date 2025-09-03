@@ -2,7 +2,7 @@
 
 ## Activate Virtual Environment
 ```
-conda activate rag-env
+conda activate /opt/anaconda3/envs/rag-env
 ```
 
 ## Install dependencies
